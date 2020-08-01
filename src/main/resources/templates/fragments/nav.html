@@ -1,0 +1,58 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <a class="navbar-brand" href="/homes">GAMMA</a>
+
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+
+        </div>
+    </form>
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+
+        </div>
+    </form>
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+
+        </div>
+    </form>
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+
+        </div>
+    </form>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit"
+                        class="btn btn-link nav-link">
+                    Logout
+                </button>
+            </form>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <form th:action="@{users/login}" method="get">
+                <button type="submit"
+                        class="btn btn-link nav-link">
+                    Login
+                </button>
+            </form>
+        </li>
+    </ul>
+    <!-- Navbar-->
+    <ul sec:authorize="hasAnyAuthority('ADMIN')" class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a sec:authorize="hasAnyAuthority('ADMIN')" class="dropdown-item" th:href="@{/register}">Add User</a>
+                <a sec:authorize="hasAnyAuthority('ADMIN')" class="dropdown-item" th:href="@{/list-users}">List User</a>
+                <a sec:authorize="hasAnyAuthority('ADMIN')" class="dropdown-item" th:href="@{/change}">Delete/Change role</a>
+
+            </div>
+        </li>
+    </ul>
+</th:block>

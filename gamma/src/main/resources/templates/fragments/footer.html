@@ -1,0 +1,10 @@
+<th:block>
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted"> &copy; Gamma  2020</div>
+            <h3 class="margins-top-bottom home-paragraph">
+                Welcome to Gamma, <span th:text="${#authentication.getName()}" th:remove="tag">user</span>!
+            </h3>
+        </div>
+        </div>
+</th:block>

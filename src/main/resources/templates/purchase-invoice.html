@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <th:block th:include="~{fragments/head}"></th:block>
+        </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <th:block th:include="~{/fragments/nav}"></th:block>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <th:block th:include="~{fragments/sidenav}"></th:block>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">PURCHASE INVOICE</h1>
+                        <form th:action="@{/vendors/invoice}" th:object="${ledgerEntityAddBindingModel}" method="post">
+                        <div class="card mb-4">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <ul class="margins-top-bottom home-paragraph">
+                                        <label class="d" for="postingDate">Posting Date</label>
+                                        <input th:field="*{postingDate}" id="postingDate" name="postingDate" type="datetime-local" data-large-mode="true">
+                                            <th:block th:each="e : ${#fields.errors('postingDate')}">
+                                                <div class="mx-auto">
+                                                    <small th:text="${e}" class="text-danger"></small>
+                                                </div>
+                                            </th:block>
+                                        </ul>
+                                        <ul class="margins-top-bottom home-paragraph">
+                                            <label class="d" for="user">User:</label>
+
+                                            <span th:field="*{user}" id="user" name="user" th:text="${#authentication.getName()}"></span>
+                                        </ul>
+                                        <ul class="margins-top-bottom home-paragraph">
+                                            <label class="d" for="postingDate">Document Date</label>
+                                            <input th:field="*{documentDate}" id="documentDate" name="documentDate" type="date" data-large-mode="true"
+                                                   value="2014-08-23">
+                                            <th:block th:each="e : ${#fields.errors('documentDate')}">
+                                                <div class="mx-auto">
+                                                    <small th:text="${e}" class="text-danger"></small>
+                                                </div>
+                                            </th:block>
+                                        </ul>
+                                        <ul class="margins-top-bottom home-paragraph">
+                                            <label class="d" for="postingDate">Document Number</label>
+                                            <input  th:field="*{documentNumber}"  name="documentNumber"
+                                                    type="text" placeholder="number" />
+                                            <th:block th:each="e : ${#fields.errors('documentNumber')}">
+                                                <div class="mx-auto">
+                                                    <small th:text="${e}" class="text-danger"></small>
+                                                </div>
+                                            </th:block>
+                                            </ul>
+                                        <ul class="margins-top-bottom home-paragraph">
+                                            <label class="d" for="postingDate">Vendor</label>
+                                            <select  class="border-0" name="contragents" id="contragents">
+                                                <option th:each="c : ${contragentsName}" th:text="${c}" th:value="${c}" val="1"></option>
+                                            </select>
+                                        </ul>
+                                        <ul class="margins-top-bottom home-paragraph">
+                                            <label class="d" for="postingDate">Document Type</label>
+                                            <select class="border-0" name="documentType" id="documentType">
+                                                <option val="1">Invoice</option>
+                                            </select>
+                                        </ul>
+
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Accounts</th>
+                                                <th>Description</th>
+                                                <th>Debit</th>
+                                                <th>Credit</th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select  class="border-0" name="accounts" id="accounts">
+                                                       <option th:each="a : ${accountsName}" th:text="${a}" th:value="${a}" val="1"></option>
+                                                    </select>
+                                                </td>
+                                                <td >
+                                                    <input th:field="*{description}"  name="description" class="border-0" type="text" placeholder="Enter description" />
+                                                    <th:block th:each="e : ${#fields.errors('description')}">
+                                                        <div class="mx-auto">
+                                                            <small th:text="${e}" class="text-danger"></small>
+                                                        </div>
+                                                    </th:block>
+                                                </td>
+                                                <td>
+                                                    <input  th:field="*{debit}"  name="debit" class="border-0" type="text" placeholder="Enter debit" />
+                                                    <th:block th:each="e : ${#fields.errors('debit')}">
+                                                        <div class="mx-auto">
+                                                            <small th:text="${e}" class="text-danger"></small>
+                                                        </div>
+                                                    </th:block>
+                                                </td>
+                                                <td>
+                                                    <input  th:field="*{credit}"  name="credit" class="border-0"  type="text" placeholder="Enter credit" />
+                                                    <th:block th:each="e : ${#fields.errors('credit')}">
+                                                        <div class="mx-auto">
+                                                            <small th:text="${e}" class="text-danger"></small>
+                                                        </div>
+                                                    </th:block>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-group mt-4 mb-0">
+                                <button type="submit" class="btn btn-primary btn-block">Post</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <th:block th:include="~{fragments/footer}"></th:block>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
+    </body>
+</html>

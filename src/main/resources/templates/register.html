@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      sec:authorize="hasAnyAuthority('ADMIN')">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body class="bg-primary1">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <th:block th:include="~{/fragments/nav}"></th:block>
+</nav>
+<div id="layoutAuthentication">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
+        </nav>
+    </div>
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+                            <div class="card-body">
+                                <form th:action="@{/register}" th:object="${userAddBindingModel}" method="post">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="username">Name</label>
+                                                <input th:field="*{username}" class="form-control py-4"  th:errorclass="is-invalid" id="username" type="text" placeholder="Enter name" />
+
+
+                                                <th:block th:each="e : ${#fields.errors('username')}">
+                                                    <div class="mx-auto">
+                                                        <small th:text="${e}" class="text-danger"></small>
+                                                    </div>
+                                                </th:block>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1">Roles</label>
+                                        <div>
+                                            <select class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7" th:errorclass="is-invalid" id="authorities" name="authorities">
+                                                <th:block th:each="r : ${roles}">
+                                                    <option th:text="${r}" th:value="${r}"></option>
+                                                </th:block>
+
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <input th:field="*{email}"  class="form-control py-4" th:errorclass="is-invalid" id="inputEmailAddress"  type="email"  placeholder="Enter email address" />
+                                        <th:block th:each="e : ${#fields.errors('email')}">
+                                            <div class="mx-auto">
+                                                <small th:text="${e}" class="text-danger"></small>
+                                            </div>
+                                        </th:block>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputPassword">Password</label>
+                                                <input th:field="*{password}" class="form-control py-4" id="inputPassword" th:errorclass="is-invalid" type="password" placeholder="Enter password" />
+
+
+                                                <th:block th:each="e : ${#fields.errors('password')}">
+                                                    <div class="mx-auto">
+                                                        <small th:text="${e}" class="text-danger"></small>
+                                                    </div>
+                                                </th:block>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4 mb-0">
+                                        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <th:block th:include="~{fragments/footer}"></th:block>
+        </footer>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>
