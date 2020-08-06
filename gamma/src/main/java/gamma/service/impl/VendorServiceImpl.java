@@ -26,10 +26,6 @@ public class VendorServiceImpl implements VendorService {
         this.vendorRepository = vendorRepository;
     }
 
-    @Override
-    public String importVendors() throws FileNotFoundException {
-        return null;
-    }
 
     @Override
     public VendorServiceModel addVendors(VendorServiceModel vendorServiceModel) {
