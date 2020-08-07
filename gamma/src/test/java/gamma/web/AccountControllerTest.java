@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.validation.BindingResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-
 @AutoConfigureMockMvc
 class AccountControllerTest {
     @Autowired
@@ -34,10 +34,18 @@ class AccountControllerTest {
 
 
     @Test
-    void newAccounts() {
+    @WithMockUser(username = "admin", authorities = {"ACCOUNTING","ADMIN", "ACCOUNTING_MANAGER"})
+    void newAccountsTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accounts/new")).
+                andExpect(status().isOk())
+                .andExpect(view().name("new-account"))
+                .andExpect(model().attributeExists("accountsAddBindingModel"));
     }
 
     @Test
-    void newAccountsPost() {
+    @WithMockUser(username = "admin", authorities = {"USER"})
+    void newAccountsPostTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/accounts/new")).
+                andExpect(status().isForbidden());
     }
 }
