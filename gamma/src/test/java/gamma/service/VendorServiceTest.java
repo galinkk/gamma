@@ -30,7 +30,6 @@ class VendorServiceTest {
 
     @BeforeEach
     public void setUp() {
-        vendorRepository.deleteAll();
         vendor = new Vendor();
         vendor.setDebit(BigDecimal.valueOf(0));
         vendor.setCredit(BigDecimal.valueOf(0));

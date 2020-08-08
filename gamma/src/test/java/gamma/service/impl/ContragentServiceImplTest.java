@@ -1,6 +1,7 @@
 package gamma.service.impl;
 
 import gamma.Repository.ContragentRepository;
+import gamma.Repository.CustomerRepository;
 import gamma.model.entity.Contragent;
 import gamma.model.entity.Customer;
 import gamma.model.entity.Vendor;
@@ -27,19 +28,18 @@ class ContragentServiceImplTest {
 
 
     @Autowired
-    ContragentRepository contragentRepository;
+    CustomerRepository contragentRepository;
 
 
     private ContragentServiceModel contragentServiceModel;
-    private Contragent contragent;
+    private Customer contragent;
 
     @BeforeEach
     public void setUp() {
-        contragentRepository.deleteAll();
         contragent = new Customer();
         contragent.setDebit(BigDecimal.valueOf(0));
         contragent.setCredit(BigDecimal.valueOf(0));
-        contragent.setName("pesho");
+        contragent.setName("cus");
         contragent.setIdentificationNumber("12345");
         contragent.setVatRegistrationNumber("BG12345");
         contragent.setType("customer");
@@ -48,7 +48,7 @@ class ContragentServiceImplTest {
         contragentServiceModel = new ContragentServiceModel();
         contragentServiceModel.setDebit(BigDecimal.valueOf(0));
         contragentServiceModel.setCredit(BigDecimal.valueOf(0));
-        contragentServiceModel.setName("pesho");
+        contragentServiceModel.setName("cus");
         contragentServiceModel.setIdentificationNumber("12345");
         contragentServiceModel.setVatRegistrationNumber("BG12345");
         contragentServiceModel.setType("customer");
@@ -72,16 +72,8 @@ class ContragentServiceImplTest {
 
         List<ContragentServiceModel> customerResult = contragentService.findAllByType("customer");
 
-        Assertions.assertEquals(1, customerResult.size());
+        Assertions.assertEquals("cus", customerResult.get(0).getName());
 
-
-        Contragent contragent = new Vendor();
-        contragent.setDebit(BigDecimal.valueOf(0));
-        contragent.setCredit(BigDecimal.valueOf(0));
-        contragent.setName("pesho");
-        contragent.setIdentificationNumber("12345");
-        contragent.setVatRegistrationNumber("BG12345");
-        contragent.setType("vendor");
-        contragent.setBankAccountPartners("32543632");
     }
+
 }

@@ -30,8 +30,7 @@ class CustomerServiceTest {
 
     @BeforeEach
     public void setUp() {
-
-        customerRepository.deleteAll();
+        
         customer = new Customer();
         customer.setDebit(BigDecimal.valueOf(0));
         customer.setCredit(BigDecimal.valueOf(0));
