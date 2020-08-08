@@ -7,6 +7,8 @@ import gamma.model.entity.User;
 import gamma.model.service.UserServiceModel;
 import gamma.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthorityEntityRepository authorityEntityRepository;
     private final PasswordEncoder passwordEncoder;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, AuthorityEntityRepository authorityEntityRepository, PasswordEncoder passwordEncoder) {
         this.modelMapper = modelMapper;
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel registerUser(UserServiceModel userServiceModel) {
+        LOGGER.debug("Registering user");
         User newUser = new User();
         newUser.setUsername(userServiceModel.getUsername());
         newUser.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
@@ -67,6 +71,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void delete(String username) {
+
+        LOGGER.debug("Deleting user");
         userRepository.deleteByUsername(username);
     }
 
